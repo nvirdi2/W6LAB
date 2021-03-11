@@ -207,29 +207,19 @@ namespace sdds
     
     
 
-    /*std::istream& TextFile::getFile(std::istream& istr)
+    std::istream& TextFile::getFile(std::istream& istr)
     {
         string tmp;      
 
         getline(istr, tmp);    
         setFilename(tmp.c_str());   
-
-        loadText();    
+   
         setNoOfLines();   
+        loadText(); 
 
         return istr;    
-    }*/
-    std::istream& TextFile::getFile(std::istream& istr) {
-        string temp;
-        getline(istr, temp);
-        setFilename(temp.c_str());
-        setNoOfLines();
-        loadText();
-        return istr;
     }
-    
-    
-
+   
     TextFile::operator bool() const
     {
         if(m_textLines == nullptr || m_filename == nullptr || m_noOfLines == 0) {
