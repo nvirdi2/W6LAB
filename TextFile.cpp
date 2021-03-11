@@ -103,7 +103,7 @@ namespace sdds
         fout.close();
     }
 
-    void TextFile::setEmpty()
+    /*void TextFile::setEmpty()
     {
         delete[] m_textLines;
 
@@ -114,7 +114,19 @@ namespace sdds
         m_filename = nullptr;
 
         m_noOfLines = 0;
+    }*/
+    void TextFile::setEmpty() {
+        if (m_textLines)
+            delete[] m_textLines;
+        m_textLines = nullptr;
+        if (m_filename && strLen(m_filename) > 0)
+            delete[] m_filename;
+        m_filename = nullptr;
+        m_noOfLines = 0;
     }
+    
+    
+    
 
     TextFile::TextFile(unsigned pageSize) {
         m_filename = nullptr;
