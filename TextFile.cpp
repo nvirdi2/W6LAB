@@ -38,10 +38,21 @@ namespace sdds
 
 
     
-    void TextFile::setFilename(const char* fname, bool isCopy) {
+    /*void TextFile::setFilename(const char* fname, bool isCopy) {
         m_filename = new char[strLen(fname) + 3];
 
         if(isCopy) {
+            strCpy(m_filename, "C_");
+            strCat(m_filename, fname);
+        }
+
+        else {
+            strCpy(m_filename, fname);
+        }
+    }*/
+    void TextFile::setFilename(const char* fname, bool isCopy) {
+        m_filename = new char[strLen(fname) + 3];
+        if (isCopy) {
             strCpy(m_filename, "C_");
             strCat(m_filename, fname);
         }
