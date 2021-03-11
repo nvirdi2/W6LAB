@@ -48,9 +48,7 @@ namespace sdds
         }
     }
     
-    
-    
-    /*void TextFile::setNoOfLines()            
+    void TextFile::setNoOfLines()            
     {
         ifstream fin(m_filename);
         char c;
@@ -69,30 +67,27 @@ namespace sdds
         else {
           m_noOfLines++;
         }
-    }*/
-    void TextFile::setNoOfLines()
-    {
-        ifstream fin(m_filename);
-        char characters;
-        while (fin >> noskipws >> characters) {
-            if (characters == '\n')
-                m_noOfLines++;
-        }
-
-        fin.close();
-        if (m_noOfLines == 0) {
-            m_filename = nullptr;
-        }
-
-        else
-            m_noOfLines++;
     }
     
     
     
     
-
     void TextFile::loadText() {
+        if (m_filename != nullptr) {
+            m_textLines = new Line[m_noOfLines];
+            ifstream file(m_filename);
+            string temp_line;
+            int num = 0;
+            while (getline(file, temp_line))
+            {
+                m_textLines[num] = temp_line.c_str();
+                num++;
+            }
+            m_noOfLines = num;
+            file.close();
+        }
+    }
+    /*void TextFile::loadText() {
         if(m_filename != nullptr) {
 
             m_textLines = new Line[m_noOfLines];
@@ -109,7 +104,7 @@ namespace sdds
             m_noOfLines = numbers;
             file.close();
         } 
-    }
+    }*/
 
     void TextFile::saveAs(const char* fileName) const
     {
