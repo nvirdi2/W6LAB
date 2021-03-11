@@ -181,7 +181,7 @@ namespace sdds
         delete[] m_textLines;
     }
 
-    /*std::ostream& TextFile::view(std::ostream& ostr) const
+    std::ostream& TextFile::view(std::ostream& ostr) const
     {
         if(m_textLines == nullptr || m_filename == nullptr || m_noOfLines == 0) {
             return ostr;
@@ -203,31 +203,11 @@ namespace sdds
                 getchar();
             }
         } return ostr;
-    }*/
-        std::ostream& TextFile::view(std::ostream& ostr) const {
-        if (m_textLines == nullptr || m_filename == nullptr || m_noOfLines == 0) {
-            return ostr;
-        }
-        ostr << m_filename << endl;
-        for (int b = 0; m_filename[b] != '\0'; b++)  {
-            ostr << "=";
-        }
-        ostr << endl;
-        for (unsigned c = 0; c < m_noOfLines; c++) {
-            ostr << m_textLines[c] << endl;
-            if ((c + 1) % m_pageSize == 0) {
-                ostr << "Hit ENTER to continue...";
-                getchar();
-            }
-        }
-
-        return ostr;
     }
     
     
-    
 
-    std::istream& TextFile::getFile(std::istream& istr)
+    /*std::istream& TextFile::getFile(std::istream& istr)
     {
         string tmp;      
 
@@ -238,7 +218,17 @@ namespace sdds
         setNoOfLines();   
 
         return istr;    
+    }*/
+    std::istream& TextFile::getFile(std::istream& istr) {
+        string temp;
+        getline(istr, temp);
+        setFilename(temp.c_str());
+        setNoOfLines();
+        loadText();
+        return istr;
     }
+    
+    
 
     TextFile::operator bool() const
     {
