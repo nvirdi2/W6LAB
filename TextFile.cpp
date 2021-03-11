@@ -14,10 +14,6 @@
 using namespace std;
 namespace sdds
 {
-    Line::Line() {
-        m_value = nullptr;
-    }
-
     Line::operator const char* () const {
         return (const char*)m_value;
     }
