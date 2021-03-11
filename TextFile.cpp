@@ -88,14 +88,14 @@ namespace sdds {
       }
       fout.close();
    }
-   TextFile::TextFile(unsigned pageSize = 15)
+   TextFile::TextFile(unsigned pageSize)
    {
       m_filename = nullptr;
       m_textLines = nullptr;
       m_noOfLines = 0;
       m_pageSize = pageSize;
    }
-   TextFile::TextFile(const char* filename, unsigned pageSize = 15)
+   TextFile::TextFile(const char* filename, unsigned pageSize)
    {
       m_filename = nullptr;
       m_textLines = nullptr;
