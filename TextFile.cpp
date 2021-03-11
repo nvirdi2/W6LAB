@@ -35,10 +35,7 @@ namespace sdds
             delete[] m_value;
     }
     
-
-
-    
-    /*void TextFile::setFilename(const char* fname, bool isCopy) {
+    void TextFile::setFilename(const char* fname, bool isCopy) {
         m_filename = new char[strLen(fname) + 3];
 
         if(isCopy) {
@@ -49,20 +46,11 @@ namespace sdds
         else {
             strCpy(m_filename, fname);
         }
-    }*/
-    void TextFile::setFilename(const char* fname, bool isCopy) {
-        m_filename = new char[strLen(fname) + 3];
-        if (isCopy) {
-            strCpy(m_filename, "C_");
-            strCat(m_filename, fname);
-        }
-
-        else {
-            strCpy(m_filename, fname);
-        }
     }
-
-    void TextFile::setNoOfLines()            
+    
+    
+    
+    /*void TextFile::setNoOfLines()            
     {
         ifstream fin(m_filename);
         char c;
@@ -81,7 +69,28 @@ namespace sdds
         else {
           m_noOfLines++;
         }
+    }*/
+    void TextFile::setNoOfLines()
+    {
+        ifstream fin(m_filename);
+        char characters;
+        while (fin >> noskipws >> characters) {
+            if (characters == '\n')
+                m_noOfLines++;
+        }
+
+        fin.close();
+        if (m_noOfLines == 0) {
+            m_filename = nullptr;
+        }
+
+        else
+            m_noOfLines++;
     }
+    
+    
+    
+    
 
     void TextFile::loadText() {
         if(m_filename != nullptr) {
@@ -114,18 +123,6 @@ namespace sdds
         fout.close();
     }
 
-    /*void TextFile::setEmpty()
-    {
-        delete[] m_textLines;
-
-        m_textLines = nullptr;
-
-        delete[] m_filename;
-
-        m_filename = nullptr;
-
-        m_noOfLines = 0;
-    }*/
     void TextFile::setEmpty() {
         if (m_textLines)
             delete[] m_textLines;
@@ -135,9 +132,6 @@ namespace sdds
         m_filename = nullptr;
         m_noOfLines = 0;
     }
-    
-    
-    
 
     TextFile::TextFile(unsigned pageSize) {
         m_filename = nullptr;
