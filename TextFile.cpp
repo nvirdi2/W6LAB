@@ -88,7 +88,7 @@ namespace sdds
         } 
     }
 
-    /*void TextFile::saveAs(const char* fileName) const
+    void TextFile::saveAs(const char* fileName) const
     {
         ofstream fout(fileName);
         unsigned x; 
@@ -98,16 +98,7 @@ namespace sdds
         }
 
         fout.close();
-    }*/
-        void TextFile::saveAs(const char* fileName) const {
-        ofstream fout(fileName);
-        for (unsigned a = 0; a < m_noOfLines; a++) {
-            fout << m_textLines[a] << endl;
-        }
-
-        fout.close();
     }
-    
 
     void TextFile::setEmpty() {
         if (m_textLines)
@@ -129,6 +120,9 @@ namespace sdds
         m_pageSize = pageSize;
     }
 
+    
+    
+    
    TextFile::TextFile(const char* filename, unsigned pageSize) {
         m_filename = nullptr;
 
@@ -187,7 +181,7 @@ namespace sdds
         delete[] m_textLines;
     }
 
-    std::ostream& TextFile::view(std::ostream& ostr) const
+    /*std::ostream& TextFile::view(std::ostream& ostr) const
     {
         if(m_textLines == nullptr || m_filename == nullptr || m_noOfLines == 0) {
             return ostr;
@@ -209,7 +203,29 @@ namespace sdds
                 getchar();
             }
         } return ostr;
+    }*/
+        std::ostream& TextFile::view(std::ostream& ostr) const {
+        if (m_textLines == nullptr || m_filename == nullptr || m_noOfLines == 0) {
+            return ostr;
+        }
+        ostr << m_filename << endl;
+        for (int b = 0; m_filename[b] != '\0'; b++)  {
+            ostr << "=";
+        }
+        ostr << endl;
+        for (unsigned c = 0; c < m_noOfLines; c++) {
+            ostr << m_textLines[c] << endl;
+            if ((c + 1) % m_pageSize == 0) {
+                ostr << "Hit ENTER to continue...";
+                getchar();
+            }
+        }
+
+        return ostr;
     }
+    
+    
+    
 
     std::istream& TextFile::getFile(std::istream& istr)
     {
